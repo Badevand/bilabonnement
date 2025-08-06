@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forretningsudvikling - Rapporter</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+<div class="container">
+    <h1>Forretningsudvikling - Rapporter</h1>
+
+    <div class="report">
+        <h2>Antal udlejede biler:</h2>
+        <p th:text="${antalUdlejedeBiler}"></p>
+    </div>
+
+    <div class="report">
+        <h2>Samlet pris på udlejede biler:</h2>
+        <p th:text="${samletPrisUdlejedeBiler} + ' kr'"></p>
+    </div>
+
+    <div class="report">
+        <h2>Total antal biler i systemet:</h2>
+        <p th:text="${totalAntalBiler}"></p>
+    </div>
+
+    <a href="/logout">Log ud</a>
+</div>
+</body>
+</html>

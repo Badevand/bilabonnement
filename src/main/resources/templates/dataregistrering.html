@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dataregistrering - Ny Lejeaftale</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Dataregistrering - Lejeaftaler</h1>
+
+    <!-- ALLE SUCCESS BESKEDER I TOPPEN -->
+    <div th:if="${success}" class="success">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${statusSuccess}" class="success">
+        <p th:text="${statusSuccess}"></p>
+    </div>
+    <div th:if="${limitedSuccess}" class="success">
+        <p th:text="${limitedSuccess}"></p>
+    </div>
+    <div th:if="${forhaandsaftaleSuccess}" class="success">
+        <p th:text="${forhaandsaftaleSuccess}"></p>
+    </div>
+    <div th:if="${fleetListeHentet}" class="success">
+        <p>Fleet liste hentet succesfuldt!</p>
+    </div>
+
+    <h2>Registrer ny unlimited lejeaftale (>120 dage)</h2>
+
+    <form method="post" th:object="${lejeaftale}">
+        <div>
+            <label for="vognnummer">Vælg bil:</label>
+            <select id="vognnummer" th:field="*{vognnummer}" required>
+                <option value="">-- Vælg en bil --</option>
+                <option th:each="bil : ${ledigeBiler}"
+                        th:value="${bil.vognnummer}"
+                        th:text="${bil.vognnummer + ' - ' + bil.maerke + ' ' + bil.model + ' (Status: ' + bil.status + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="startDato">Start dato:</label>
+            <input type="date" id="startDato" th:field="*{startDato}" required>
+        </div>
+
+        <div>
+            <label for="slutDato">Slut dato:</label>
+            <input type="date" id="slutDato" th:field="*{slutDato}" required>
+        </div>
+
+        <div>
+            <label for="maanedligPris">Månedlig pris:</label>
+            <input type="number" step="0.01" id="maanedligPris" th:field="*{maanedligPris}" required>
+        </div>
+
+        <div>
+            <label for="totalPris">Total pris:</label>
+            <input type="number" step="0.01" id="totalPris" th:field="*{totalPris}" required>
+        </div>
+
+        <button type="submit">Opret Lejeaftale</button>
+    </form>
+
+    <hr>
+
+    <h2>Registrer ny limited lejeaftale (150 dage)</h2>
+
+    <form method="post" action="/dataregistrering-limited">
+        <div>
+            <label for="limitedVognnummer">Vælg bil:</label>
+            <select id="limitedVognnummer" name="vognnummer" required>
+                <option value="">-- Vælg en bil --</option>
+                <option th:each="bil : ${ledigeBiler}"
+                        th:value="${bil.vognnummer}"
+                        th:text="${bil.vognnummer + ' - ' + bil.stelnummer + ' - ' + bil.maerke + ' ' + bil.model + ' - ' + bil.udstyrsniveau + ' - Stålpris: ' + bil.staalpris + ' - Reg.afgift: ' + bil.regAfgift + ' - CO2: ' + bil.co2Udledning + ' (Status: ' + bil.status + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="limitedStartDato">Start dato:</label>
+            <input type="date" id="limitedStartDato" name="startDato" required>
+        </div>
+
+        <div>
+            <label for="limitedMaanedligPris">Månedlig pris:</label>
+            <input type="number" step="0.01" id="limitedMaanedligPris" name="maanedligPris" required>
+        </div>
+
+        <button type="submit">Opret Limited Lejeaftale</button>
+    </form>
+
+    <hr>
+
+    <h2>Opret Forhåndsaftale</h2>
+
+    <form method="post" action="/opret-forhaandsaftale">
+        <div>
+            <label for="salgsVognnummer">Vælg bil:</label>
+            <select id="salgsVognnummer" name="vognnummer" required>
+                <option value="">-- Vælg en bil --</option>
+                <option th:each="bil : ${udlejedeBiler}"
+                        th:value="${bil.vognnummer}"
+                        th:text="${bil.vognnummer + ' - ' + bil.maerke + ' ' + bil.model + ' (Status: ' + bil.status + ')'}">
+                </option>
+            </select>
+        </div>
+
+        <h3>Skade matrix:</h3>
+        <ul>
+            <li>Lakfelt: 1500 kr/stk</li>
+            <li>Ridset alufælg: 400 kr/stk</li>
+            <li>Ny forrude: 3000 kr/stk</li>
+            <li>Overkørte kilometer: 0,75 kr/km</li>
+        </ul>
+
+        <div>
+            <label for="afhentningssted">Afhentningssted:</label>
+            <select id="afhentningssted" name="afhentningssted" required>
+                <option value="">-- Vælg afhentningssted --</option>
+                <option value="DS">DS</option>
+                <option value="Bilabonnement">Bilabonnement</option>
+            </select>
+        </div>
+
+        <button type="submit">Opret Forhåndsaftale</button>
+    </form>
+
+    <hr>
+
+    <h2>Fleet Integration</h2>
+    <form method="post" action="/traek-fleet-liste">
+        <button type="submit">Træk liste fra Fleet</button>
+    </form>
+
+    <!-- Vis Fleet liste -->
+    <div th:if="${fleetListeHentet}">
+        <h3>Liste hentet fra Fleet - biler til udlevering i dag:</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Stelnummer</th>
+                <th>Mærke + Model</th>
+                <th>IRK Kode</th>
+                <th>Lejeaftale ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bil : ${udleveringsliste}">
+                <td th:text="${bil.vognnummer}"></td>
+                <td th:text="${bil.maerke + ' ' + bil.model}"></td>
+                <td th:text="'IRK-' + ${bil.vognnummer}"></td>
+                <td th:text="'LA-' + ${bil.vognnummer}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/logout">Log ud</a>
+</div>
+</body>
+</html>

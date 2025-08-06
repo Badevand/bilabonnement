@@ -1,0 +1,81 @@
+<!-- skade.html - placeres i din templates mappe -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Skade & Udbedring - Opret Tilstandsrapport</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Skade & Udbedring</h1>
+
+    <!-- ALLE SUCCESS/ERROR BESKEDER I TOPPEN -->
+    <div th:if="${tilstandsrapportSuccess}" class="success">
+        <p th:text="${tilstandsrapportSuccess}"></p>
+    </div>
+    <div th:if="${slutopgoerelseSendt}" class="success">
+        <p th:text="${slutopgoerelseSendt}"></p>
+    </div>
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <h2>Opret Tilstandsrapport</h2>
+
+    <form method="post" action="/opret-tilstandsrapport">
+        <div>
+            <label for="lejeaftaleId">Vælg afsluttet lejeaftale:</label>
+            <select id="lejeaftaleId" name="lejeaftaleId" required>
+                <option value="">-- Vælg lejeaftale --</option>
+                <option th:each="lejeaftale : ${afsluttedeLejeaftaler}"
+                        th:value="${lejeaftale.lejeaftaleId}"
+                        th:text="${lejeaftale.lejeaftaleId + ' - ' + lejeaftale.vognnummer}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="lakfeltAntal">Lakfelt (1500 kr/stk):</label>
+            <input type="number" id="lakfeltAntal" name="lakfeltAntal" min="0" value="0" required>
+        </div>
+
+        <div>
+            <label for="ridsetAlufaelgAntal">Ridset alufælg (400 kr/stk):</label>
+            <input type="number" id="ridsetAlufaelgAntal" name="ridsetAlufaelgAntal" min="0" value="0" required>
+        </div>
+
+        <div>
+            <label for="nyForrudeAntal">Ny forrude (3000 kr/stk):</label>
+            <input type="number" id="nyForrudeAntal" name="nyForrudeAntal" min="0" value="0" required>
+        </div>
+
+        <div>
+            <label for="overkoerteKm">Overkørte km (0,75 kr/km):</label>
+            <input type="number" id="overkoerteKm" name="overkoerteKm" min="0" value="0" required>
+        </div>
+
+        <button type="submit">Opret Tilstandsrapport</button>
+    </form>
+
+    <!-- Send slutopgørelse sektion - kun synlig efter tilstandsrapport er oprettet -->
+    <div th:if="${tilstandsrapportSuccess}">
+        <hr>
+        <h2>Send slutopgørelse til kunde</h2>
+
+        <form method="post" action="/send-slutopgoerelse">
+            <input type="hidden" name="tilstandsrapportId" value="1">
+
+            <div>
+                <label for="email">Kundens email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <button type="submit">Send slutopgørelse</button>
+        </form>
+    </div>
+
+    <a href="/logout">Log ud</a>
+</div>
+</body>
+</html>

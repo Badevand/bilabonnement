@@ -1,0 +1,42 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilabonnement - Login</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Bilabonnement Login</h1>
+
+    <!-- Vis fejlbesked hvis login fejler -->
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form method="post" action="/login">
+        <div>
+            <label for="brugernavn">Brugernavn:</label>
+            <input type="text" id="brugernavn" name="brugernavn" required>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit">Log ind</button>
+    </form>
+
+    <div class="info">
+        <h3>Test brugere:</h3>
+        <p>Dataregistrering: sarabi.data / rawr</p>
+        <p>Skade & udbedring: nala.skade / rawr</p>
+        <p>Forretningsudvikling: kiara.for / rawr</p>
+    </div>
+</div>
+</body>
+</html>

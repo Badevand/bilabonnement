@@ -1,0 +1,315 @@
+/* style.css - Bilabonnement System Styling */
+
+/* Reset og basis styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #e4e4e7;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container styling - følger Golden Rule om consistency */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    min-height: 500px;
+}
+
+/* Headers - følger Gestalt Law of Hierarchy */
+h1 {
+    color: #64b5f6;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 3px solid #42a5f5;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #90caf9;
+    font-size: 1.6em;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-left: 4px solid #42a5f5;
+    padding-left: 15px;
+}
+
+h3 {
+    color: #e4e4e7;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+/* Forms - følger Gestalt Law of Proximity og Similarity */
+form {
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 6px;
+    border: 1px solid #3a3a3a;
+    margin-bottom: 25px;
+}
+
+form div {
+    margin-bottom: 20px;
+}
+
+/* Labels - følger Golden Rule om informative feedback */
+label {
+    display: block;
+    font-weight: 600;
+    color: #e4e4e7;
+    margin-bottom: 6px;
+    font-size: 0.95em;
+}
+
+/* Input fields - følger Gestalt Law of Similarity */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #4a4a4a;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background-color: #333333;
+    color: #e4e4e7;
+}
+
+/* Focus states - følger Golden Rule om user control */
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #42a5f5;
+    box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.3);
+}
+
+/* Buttons - følger Gestalt Law of Figure/Ground */
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    min-width: 150px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2980b9, #1f5f8b);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Success og Error messages - følger Golden Rule om informative feedback */
+.success {
+    background: #1b3a23;
+    color: #4caf50;
+    padding: 20px 25px;
+    border: 1px solid #2e5530;
+    border-left: 5px solid #4caf50;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 1.1em;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+    text-align: center;
+}
+
+.error {
+    background: #3a1b1b;
+    color: #f44336;
+    padding: 20px 25px;
+    border: 1px solid #552e2e;
+    border-left: 5px solid #f44336;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 1.1em;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+    text-align: center;
+}
+
+/* Info sektion - følger Gestalt Law of Closure */
+.info {
+    background: #1a2332;
+    border: 1px solid #2c3e50;
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.info h3 {
+    color: #64b5f6;
+    margin-top: 0;
+}
+
+.info p {
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    background: #2a2a2a;
+    color: #e4e4e7;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #4a4a4a;
+}
+
+/* Tables - følger Gestalt Law of Similarity og Proximity */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #2a2a2a;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+th {
+    background: #1976d2;
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #3a3a3a;
+    color: #e4e4e7;
+}
+
+tr:nth-child(even) {
+    background-color: #1e1e1e;
+}
+
+tr:hover {
+    background-color: #2d3142;
+}
+
+/* Reports sektion - følger Gestalt Law of Proximity */
+.report {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.report h2 {
+    color: white;
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.report p {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Links - følger Golden Rule om consistency */
+a {
+    color: #64b5f6;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border: 2px solid #64b5f6;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    background: #64b5f6;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+/* Lists - følger Gestalt Law of Proximity */
+ul {
+    background: #1e1e1e;
+    padding: 20px 25px;
+    border-radius: 6px;
+    border-left: 4px solid #42a5f5;
+    margin: 15px 0;
+}
+
+ul li {
+    margin-bottom: 8px;
+    padding-left: 5px;
+    color: #e4e4e7;
+}
+
+/* HR styling - følger Gestalt Law of Continuity */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #42a5f5, #1976d2, #42a5f5);
+    margin: 30px 0;
+    border-radius: 1px;
+}
+
+/* Responsive design - følger Golden Rule om flexibility */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    form {
+        padding: 20px 15px;
+    }
+
+    table {
+        font-size: 0.9em;
+    }
+
+    th, td {
+        padding: 8px 6px;
+    }
+
+    .report p {
+        font-size: 1.4em;
+    }
+}
