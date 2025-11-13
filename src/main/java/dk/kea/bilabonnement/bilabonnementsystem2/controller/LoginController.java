@@ -38,13 +38,13 @@ public class LoginController {
                               HttpSession session,
                               Model model) {
 
-        // login
+
         Medarbejder medarbejder = medarbejderService.login(brugernavn, password);
 
         if (medarbejder != null) {
             session.setAttribute("loggedInUser", medarbejder);
 
-            // redirect baseret på rolle
+
             return medarbejderService.getRedirectUrlForRole(medarbejder.getRolle());
 
         } else {

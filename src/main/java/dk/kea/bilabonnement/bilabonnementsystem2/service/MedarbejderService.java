@@ -18,6 +18,7 @@ public class MedarbejderService {
 
 
     public Medarbejder login(String brugernavn, String password) {
+
         Medarbejder medarbejder = medarbejderRepository.findByBrugernavnAndPassword(brugernavn, password);
 
         if (medarbejder != null) {

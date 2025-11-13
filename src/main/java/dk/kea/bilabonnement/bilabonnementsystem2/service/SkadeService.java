@@ -15,7 +15,7 @@ public class SkadeService {
     @Autowired
     private SkadeRepository skadeRepository;
 
-    // hent alle skadepriser
+
     public List<Skadepris> getSkadepriser() {
         return skadeRepository.findAllSkadepriser();
     }

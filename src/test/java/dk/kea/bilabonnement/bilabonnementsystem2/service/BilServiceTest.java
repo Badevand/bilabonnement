@@ -42,7 +42,7 @@ public class BilServiceTest {
         udlejedeBiler.add(new Bil("XYZ789", "67890", "Honda", "Civic",
                 "Premium", 180000, 45000, 110, "udlejet", 0));
 
-        // Mock repository responses
+
         when(bilRepository.findAllLedigeBiler()).thenReturn(ledigeBiler);
         when(bilRepository.findUdlejedeBiler()).thenReturn(udlejedeBiler);
         when(bilRepository.findBilerMedSkadeStatus()).thenReturn(new ArrayList<>());
@@ -52,9 +52,9 @@ public class BilServiceTest {
 
         // assert
         assertNotNull(result);
-        assertEquals(2, result.size()); // 1 ledig + 1 udlejet + 0 skadede = 2
+        assertEquals(2, result.size());
 
-        // verify at repository metoder blev kaldt
+
         verify(bilRepository).findAllLedigeBiler();
         verify(bilRepository).findUdlejedeBiler();
         verify(bilRepository).findBilerMedSkadeStatus();
@@ -67,18 +67,21 @@ public class BilServiceTest {
         // arrange
         when(bilRepository.findByVognnummer(null)).thenThrow(new IllegalArgumentException("Vognnummer kan ikke være null"));
 
+
         // act & assert (test at exception kastes)
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             bilService.getBilByVognnummer(null);
         });
 
         assertEquals("Vognnummer kan ikke være null", exception.getMessage());
+
         verify(bilRepository).findByVognnummer(null);
     }
 
     // inputvalidering
     @Test
     public void testUpdateBilStatus_ValidInput() {
+
         // arrange
         String vognnummer = "ABC123";
         String nyStatus = "udlejet";

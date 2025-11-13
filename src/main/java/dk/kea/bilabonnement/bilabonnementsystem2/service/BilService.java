@@ -47,7 +47,7 @@ public class BilService implements BaseService<Bil> {
 
 
 
-    // Fleet
+    // fleet
     public List<Bil> getBilerTilUdlevering() {
         return bilRepository.findBilerTilUdlevering();
     }
