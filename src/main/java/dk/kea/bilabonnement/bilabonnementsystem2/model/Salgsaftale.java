@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
 import java.time.LocalDateTime;
@@ -14,10 +16,7 @@ public class Salgsaftale {
     private String regAttestAdresse;
     private LocalDateTime oprettetDato;
 
-    // Tom konstruktør
     public Salgsaftale() {}
-
-    // Konstruktør
     public Salgsaftale(String stelnummer, String maerke, double koebspris, String valuta,
                        String afhentningssted, boolean erForhaandsaftale,
                        String fakturaEmail, String regAttestAdresse) {
@@ -31,7 +30,6 @@ public class Salgsaftale {
         this.regAttestAdresse = regAttestAdresse;
     }
 
-    // Getters og Setters
     public int getSalgsaftaleId() {
         return salgsaftaleId;
     }

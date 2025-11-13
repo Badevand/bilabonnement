@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -15,24 +17,24 @@ public class SalgsaftaleService {
     @Autowired
     private BilService bilService;
 
-    // Opret forhåndsaftale
+
     public void opretForhaandsaftale(String vognnummer, String afhentningssted) {
-        // Hent bil-detaljer baseret på vognnummer
+
+
         Bil bil = bilService.getBilByVognnummer(vognnummer);
 
-        // Opret salgsaftale (forhåndsaftale uden fradrag - det beregnes ved tilstandsrapport)
+        // opret salgsaftale/forhaandsaftale
         Salgsaftale forhaandsaftale = new Salgsaftale(
                 bil.getStelnummer(),
                 bil.getMaerke(),
-                0.0, // Ingen fradrag endnu - beregnes ved tilstandsrapport
+                0.0,
                 "DKK",
                 afhentningssted,
-                true, // er_forhaandsaftale = true
-                null, // faktura_email
-                null  // reg_attest_adresse
+                true,
+                null,
+                null
         );
 
-        // Gem forhåndsaftalen
         salgsaftaleRepository.save(forhaandsaftale);
     }
 }

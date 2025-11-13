@@ -1,4 +1,5 @@
-// LejeaftaleRepository.java - placeres i din repository mappe
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.repository;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Lejeaftale;
@@ -18,7 +19,6 @@ public class LejeaftaleRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // RowMapper til at mappe database resultater til Lejeaftale objekter
     private RowMapper<Lejeaftale> lejeaftaleRowMapper = new RowMapper<Lejeaftale>() {
         @Override
         public Lejeaftale mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -35,9 +35,12 @@ public class LejeaftaleRepository {
         }
     };
 
-    // Opret ny lejeaftale
+
     public void save(Lejeaftale lejeaftale) {
-        String sql = "INSERT INTO lejeaftaler (vognnummer, start_dato, slut_dato, maanedlig_pris, total_pris, status) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = """
+        INSERT INTO lejeaftaler (vognnummer, start_dato, slut_dato, maanedlig_pris, total_pris, status) 
+        VALUES (?, ?, ?, ?, ?, ?)
+        """;
         jdbcTemplate.update(sql,
                 lejeaftale.getVognnummer(),
                 lejeaftale.getStartDato(),
@@ -48,21 +51,34 @@ public class LejeaftaleRepository {
         );
     }
 
-    // Find afsluttede lejeaftaler
+
     public List<Lejeaftale> findAfsluttedeLejeaftaler() {
-        String sql = "SELECT * FROM lejeaftaler WHERE status = 'afsluttet' ORDER BY slut_dato DESC";
+        String sql = """
+        SELECT * 
+        FROM lejeaftaler 
+        WHERE status = 'afsluttet' 
+        ORDER BY slut_dato DESC
+        """;
         return jdbcTemplate.query(sql, lejeaftaleRowMapper);
     }
 
-    // Find lejeaftale by ID
+
     public Lejeaftale findById(int lejeaftaleId) {
-        String sql = "SELECT * FROM lejeaftaler WHERE lejeaftale_id = ?";
+        String sql = """
+        SELECT * 
+        FROM lejeaftaler 
+        WHERE lejeaftale_id = ?
+        """;
         return jdbcTemplate.queryForObject(sql, lejeaftaleRowMapper, lejeaftaleId);
     }
 
-    // Opdater udløbede lejeaftaler automatisk
     public void updateUdloebetLejeaftaler() {
-        String sql = "UPDATE lejeaftaler SET status = 'afsluttet' WHERE slut_dato < CURDATE() AND status = 'aktiv'";
+        String sql = """
+        UPDATE lejeaftaler 
+        SET status = 'afsluttet' 
+        WHERE slut_dato < CURDATE() 
+        AND status = 'aktiv'
+        """;
         jdbcTemplate.update(sql);
     }
 }

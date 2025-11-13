@@ -1,5 +1,6 @@
-package dk.kea.bilabonnement.bilabonnementsystem2.controller;
 
+
+package dk.kea.bilabonnement.bilabonnementsystem2.controller;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Medarbejder;
 import dk.kea.bilabonnement.bilabonnementsystem2.repository.LejeaftaleRepository;
@@ -24,36 +25,36 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    // Vis login siden
+
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login"; // returnerer login.html template
+        return "login";
     }
 
-    // Håndter login forsøg
+
     @PostMapping("/login")
     public String handleLogin(@RequestParam String brugernavn,
                               @RequestParam String password,
                               HttpSession session,
                               Model model) {
 
-        // Håndter login
+        // login
         Medarbejder medarbejder = medarbejderService.login(brugernavn, password);
 
         if (medarbejder != null) {
-            // Login success - gem bruger i session
             session.setAttribute("loggedInUser", medarbejder);
 
-            // Redirect baseret på rolle
+            // redirect baseret på rolle
             return medarbejderService.getRedirectUrlForRole(medarbejder.getRolle());
+
         } else {
-            // Login failed
+
             model.addAttribute("error", "Forkert brugernavn eller password");
             return "login";
         }
     }
 
-    // Logout
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

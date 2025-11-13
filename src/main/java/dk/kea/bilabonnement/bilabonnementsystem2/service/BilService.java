@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -16,30 +18,36 @@ public class BilService implements BaseService<Bil> {
 
     @Override
     public List<Bil> findAll() {
-        return getAlleBiler();
+        List<Bil> alleBiler = new ArrayList<>();
+
+
+        alleBiler.addAll(getLedigeBiler());
+        alleBiler.addAll(getUdlejedeBiler());
+        alleBiler.addAll(getBilerMedSkadeStatus());
+
+        return alleBiler;
     }
 
-    // Hent alle ledige biler
     public List<Bil> getLedigeBiler() {
         return bilRepository.findAllLedigeBiler();
     }
 
-    // Hent alle udlejede biler
     public List<Bil> getUdlejedeBiler() {
         return bilRepository.findUdlejedeBiler();
     }
 
-    // Find bil baseret på vognnummer
     public Bil getBilByVognnummer(String vognnummer) {
         return bilRepository.findByVognnummer(vognnummer);
     }
 
-    // Opdater bil status
     public void updateBilStatus(String vognnummer, String nyStatus) {
         bilRepository.updateBilStatus(vognnummer, nyStatus);
     }
 
-    // Hent biler til fleet udlevering
+
+
+
+    // Fleet
     public List<Bil> getBilerTilUdlevering() {
         return bilRepository.findBilerTilUdlevering();
     }
@@ -47,22 +55,6 @@ public class BilService implements BaseService<Bil> {
     public List<Bil> getBilerMedSkadeStatus() {
         return bilRepository.findBilerMedSkadeStatus();
     }
-
-    public List<Bil> getAlleBiler() {
-        List<Bil> alleBiler = new ArrayList<>();
-
-        // Saml biler fra forskellige sources med ArrayList
-        alleBiler.addAll(getLedigeBiler());        // Ledige biler
-        alleBiler.addAll(getUdlejedeBiler());      // Udlejede biler
-        alleBiler.addAll(getBilerMedSkadeStatus()); // Skadede biler
-
-        return alleBiler;
-    }
-
-
-
-
-
 
 
 }

@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.repository;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Medarbejder;
@@ -14,7 +16,7 @@ public class MedarbejderRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // RowMapper til at mappe database resultater til Medarbejder objekter
+
     private RowMapper<Medarbejder> medarbejderRowMapper = new RowMapper<Medarbejder>() {
         @Override
         public Medarbejder mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -29,13 +31,19 @@ public class MedarbejderRepository {
         }
     };
 
-    // Find medarbejder baseret på brugernavn og password (til login)
     public Medarbejder findByBrugernavnAndPassword(String brugernavn, String password) {
-        String sql = "SELECT * FROM medarbejdere WHERE brugernavn = ? AND password = ?";
+        String sql = """
+        SELECT * 
+        FROM medarbejdere 
+        WHERE brugernavn = ? 
+        AND password = ?
+        """;
         try {
             return jdbcTemplate.queryForObject(sql, medarbejderRowMapper, brugernavn, password);
         } catch (Exception e) {
-            return null; // Returner null hvis ingen medarbejder findes
+            return null;
         }
     }
+
+
 }

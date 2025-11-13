@@ -1,5 +1,6 @@
-package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
+
+package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
 import dk.kea.bilabonnement.bilabonnementsystem2.repository.BilRepository;
@@ -28,41 +29,45 @@ public class BilServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // HAPPY FLOW TEST
+    // happy
     @Test
     public void testGetAlleBiler_ReturnsListOfCars() {
-        // Arrange (forbered test data)
+
+        // arrange
         List<Bil> ledigeBiler = new ArrayList<>();
-        ledigeBiler.add(new Bil("ABC123", "12345", "Toyota", "Camry", "Standard", 200000, 50000, 120, "ledig", 0));
+        ledigeBiler.add(new Bil("ABC123", "12345", "Toyota", "Camry",
+                "Standard", 200000, 50000, 120, "ledig", 0));
 
         List<Bil> udlejedeBiler = new ArrayList<>();
-        udlejedeBiler.add(new Bil("XYZ789", "67890", "Honda", "Civic", "Premium", 180000, 45000, 110, "udlejet", 0));
+        udlejedeBiler.add(new Bil("XYZ789", "67890", "Honda", "Civic",
+                "Premium", 180000, 45000, 110, "udlejet", 0));
 
         // Mock repository responses
         when(bilRepository.findAllLedigeBiler()).thenReturn(ledigeBiler);
         when(bilRepository.findUdlejedeBiler()).thenReturn(udlejedeBiler);
         when(bilRepository.findBilerMedSkadeStatus()).thenReturn(new ArrayList<>());
 
-        // Act (udfør test)
-        List<Bil> result = bilService.getAlleBiler();
+        // act
+        List<Bil> result = bilService.findAll();
 
-        // Assert (tjek resultater)
+        // assert
         assertNotNull(result);
         assertEquals(2, result.size()); // 1 ledig + 1 udlejet + 0 skadede = 2
 
-        // Verify at repository metoder blev kaldt
+        // verify at repository metoder blev kaldt
         verify(bilRepository).findAllLedigeBiler();
         verify(bilRepository).findUdlejedeBiler();
         verify(bilRepository).findBilerMedSkadeStatus();
     }
 
-    // EXCEPTION FLOW TEST + INPUT VALIDERING
+    // exception
     @Test
     public void testGetBilByVognnummer_ThrowsExceptionWhenVognnummerIsNull() {
-        // Arrange
+
+        // arrange
         when(bilRepository.findByVognnummer(null)).thenThrow(new IllegalArgumentException("Vognnummer kan ikke være null"));
 
-        // Act & Assert (test at exception kastes)
+        // act & assert (test at exception kastes)
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             bilService.getBilByVognnummer(null);
         });
@@ -71,17 +76,17 @@ public class BilServiceTest {
         verify(bilRepository).findByVognnummer(null);
     }
 
-    // BONUS: Test af input validering
+    // inputvalidering
     @Test
     public void testUpdateBilStatus_ValidInput() {
-        // Arrange
+        // arrange
         String vognnummer = "ABC123";
         String nyStatus = "udlejet";
 
-        // Act
+        // act
         bilService.updateBilStatus(vognnummer, nyStatus);
 
-        // Assert
+        // assert
         verify(bilRepository).updateBilStatus(vognnummer, nyStatus);
     }
 }

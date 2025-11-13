@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.repository;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Salgsaftale;
@@ -12,7 +14,10 @@ public class SalgsaftaleRepository {
     private JdbcTemplate jdbcTemplate;
 
     public void save(Salgsaftale salgsaftale) {
-        String sql = "INSERT INTO salgsaftaler (stelnummer, maerke, koebspris, valuta, afhentningssted, er_forhaandsaftale, faktura_email, reg_attest_adresse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = """
+        INSERT INTO salgsaftaler (stelnummer, maerke, koebspris, valuta, afhentningssted, er_forhaandsaftale, faktura_email, reg_attest_adresse) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """;
 
         jdbcTemplate.update(sql,
                 salgsaftale.getStelnummer(),

@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.controller;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -22,19 +24,19 @@ public class ForretningsudviklerController {
 
     @GetMapping("/forretning")
     public String showForretningsudviklerPage(HttpSession session, Model model) {
-        // Tjek om bruger er logget ind
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
-        // Hent data fra minimumskravene
+
         int antalUdlejedeBiler = forretningsudviklerRepository.getAntalUdlejedeBiler();
         double samletPrisUdlejedeBiler = forretningsudviklerRepository.getSamletPrisUdlejedeBiler();
 
         model.addAttribute("antalUdlejedeBiler", antalUdlejedeBiler);
         model.addAttribute("samletPrisUdlejedeBiler", samletPrisUdlejedeBiler);
 
-        List<Bil> alleBiler = bilService.getAlleBiler();
+        List<Bil> alleBiler = bilService.findAll();
         model.addAttribute("totalAntalBiler", alleBiler.size());
 
         return "forretningsudvikler";

@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.controller;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -29,17 +31,17 @@ public class DataregistreringController {
     @Autowired
     private BilService bilService;
 
-    // Vis siden til dataregistrering
+
     @GetMapping("/dataregistrering")
     public String showDataregistreringPage(HttpSession session, Model model) {
-        // Tjek om bruger er logget ind
+
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
-        // hent biler til dropdown
-        List<Bil> ledigeBiler = bilService.getLedigeBiler(); // Til unlimited/limited lejeaftaler
-        List<Bil> udlejedeBiler = bilService.getUdlejedeBiler(); // Til forhåndsaftaler
+        List<Bil> ledigeBiler = bilService.getLedigeBiler(); // til unlimited/limited lejeaftaler
+        List<Bil> udlejedeBiler = bilService.getUdlejedeBiler(); // til forhåndsaftaler
         model.addAttribute("udlejedeBiler", udlejedeBiler);
         model.addAttribute("ledigeBiler", ledigeBiler);
         model.addAttribute("lejeaftale", new Lejeaftale());
@@ -47,20 +49,16 @@ public class DataregistreringController {
         return "dataregistrering";
     }
 
-    // Opret lejeaftale (unlimited)
+    // opret lejeaftale (unlimited)
     @PostMapping("/dataregistrering")
     public String opretLejeaftale(@ModelAttribute Lejeaftale lejeaftale, Model model) {
 
-        // Sæt status automatisk til aktiv
         lejeaftale.setStatus("aktiv");
 
-        // Gem lejeaftalen og opdater bil status
         lejeaftaleService.opretLejeaftale(lejeaftale);
 
-        // Vis bekræftelse
         model.addAttribute("success", "Lejeaftale oprettet!");
 
-        // Hent opdaterede lister (bilen er nu udlejet)
         List<Bil> ledigeBiler = bilService.getLedigeBiler();
         List<Bil> udlejedeBiler = bilService.getUdlejedeBiler();
         model.addAttribute("ledigeBiler", ledigeBiler);
@@ -70,20 +68,19 @@ public class DataregistreringController {
         return "dataregistrering";
     }
 
-    // Opret lejeaftale (limited)
+    // opret lejeaftale (limited)
     @PostMapping("/dataregistrering-limited")
     public String opretLimitedLejeaftale(@RequestParam String vognnummer,
                                          @RequestParam LocalDate startDato,
                                          @RequestParam double maanedligPris,
                                          Model model) {
 
-        // Opret limited lejeaftale med automatisk beregning
+
         lejeaftaleService.opretLimitedLejeaftale(vognnummer, startDato, maanedligPris);
 
-        // Vis bekræftelse
         model.addAttribute("limitedSuccess", "Limited lejeaftale (150 dage) oprettet!");
 
-        // Hent opdaterede lister (bilen er nu udlejet)
+
         List<Bil> ledigeBiler = bilService.getLedigeBiler();
         List<Bil> udlejedeBiler = bilService.getUdlejedeBiler();
         model.addAttribute("ledigeBiler", ledigeBiler);
@@ -99,16 +96,14 @@ public class DataregistreringController {
                                        @RequestParam String afhentningssted,
                                        Model model) {
 
-        // Opret forhåndsaftale
+
         salgsaftaleService.opretForhaandsaftale(vognnummer, afhentningssted);
 
-        // Hent bil info til success besked
-        Bil bil = bilService.getBilByVognnummer(vognnummer);
 
-        // Vis bekræftelse
+        Bil bil = bilService.getBilByVognnummer(vognnummer);
         model.addAttribute("forhaandsaftaleSuccess", "Forhåndsaftale oprettet for " + bil.getMaerke() + " " + bil.getModel());
 
-        // Hent data igen til siden
+
         List<Bil> ledigeBiler = bilService.getLedigeBiler();
         List<Bil> udlejedeBiler = bilService.getUdlejedeBiler();
         model.addAttribute("ledigeBiler", ledigeBiler);
@@ -118,18 +113,18 @@ public class DataregistreringController {
         return "dataregistrering";
     }
 
-    // Fleet
+    // fleet
     @PostMapping("/traek-fleet-liste")
     public String traekFleetListe(Model model) {
 
-        // Hent biler til udlevering (ledige biler med aktive lejeaftaler)
+        // hent biler til udlevering (ledige biler med aktive lejeaftaler)
         List<Bil> udleveringsliste = bilService.getBilerTilUdlevering();
 
-        // Tilføj til model så listen vises
+        // tilføj til model så listen vises
         model.addAttribute("udleveringsliste", udleveringsliste);
         model.addAttribute("fleetListeHentet", true);
 
-        // Hent standard data til siden
+        // hent standard data til siden
         List<Bil> ledigeBiler = bilService.getLedigeBiler();
         List<Bil> udlejedeBiler = bilService.getUdlejedeBiler();
         model.addAttribute("ledigeBiler", ledigeBiler);

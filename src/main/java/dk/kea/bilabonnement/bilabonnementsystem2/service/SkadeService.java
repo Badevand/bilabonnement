@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Skadepris;
@@ -13,7 +15,7 @@ public class SkadeService {
     @Autowired
     private SkadeRepository skadeRepository;
 
-    // Hent alle skadepriser
+    // hent alle skadepriser
     public List<Skadepris> getSkadepriser() {
         return skadeRepository.findAllSkadepriser();
     }

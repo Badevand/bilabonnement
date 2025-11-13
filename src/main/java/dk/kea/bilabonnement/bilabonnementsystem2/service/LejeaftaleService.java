@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Lejeaftale;
@@ -17,13 +19,13 @@ public class LejeaftaleService {
     @Autowired
     private BilService bilService;
 
-    // Gem lejeaftale og opdater bil status
+
     public void opretLejeaftale(Lejeaftale lejeaftale) {
         lejeaftaleRepository.save(lejeaftale);
         bilService.updateBilStatus(lejeaftale.getVognnummer(), "udlejet");
     }
 
-    // Opret limited lejeaftale med beregninger
+    // opret limited lejeaftale med beregninger
     public void opretLimitedLejeaftale(String vognnummer, LocalDate startDato, double maanedligPris) {
         LocalDate slutDato = startDato.plusDays(150);
         double totalPris = maanedligPris * 5;
@@ -34,17 +36,17 @@ public class LejeaftaleService {
         bilService.updateBilStatus(vognnummer, "udlejet");
     }
 
-    // Hent afsluttede lejeaftaler
+    // hent afsluttede lejeaftaler
     public List<Lejeaftale> getAfsluttedeLejeaftaler() {
         return lejeaftaleRepository.findAfsluttedeLejeaftaler();
     }
 
-    // Find lejeaftale baseret på ID
+    // find lejeaftale baseret på ID
     public Lejeaftale getLejeaftaleById(int lejeaftaleId) {
         return lejeaftaleRepository.findById(lejeaftaleId);
     }
 
-    // Opdater udløbede lejeaftaler
+    // opdater udløbede lejeaftaler
     public void updateUdloebetLejeaftaler() {
         lejeaftaleRepository.updateUdloebetLejeaftaler();
     }

@@ -1,4 +1,5 @@
-// Bil.java - placeres i din model mappe
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
 public class Bil {
@@ -15,10 +16,8 @@ public class Bil {
     private int kmVedRetur;
 
 
-    // Tom konstruktør
-    public Bil() {}
 
-    // Konstruktør med grundlæggende felter
+    public Bil() {}
     public Bil(String vognnummer, String stelnummer, String maerke, String model,
                String udstyrsniveau, double staalpris, double regAfgift,
                int co2Udledning, String status, int kmVedStart) {
@@ -34,7 +33,6 @@ public class Bil {
         this.kmVedStart = kmVedStart;
     }
 
-    // Getters og Setters for grundlæggende felter
     public String getVognnummer() {
         return vognnummer;
     }

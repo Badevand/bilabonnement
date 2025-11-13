@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
 public class Skadepris {
@@ -5,17 +7,13 @@ public class Skadepris {
     private String skadetype;
     private int pris;
 
-    // Tom konstruktør
     public Skadepris() {}
-
-    // Konstruktør
     public Skadepris(int skadetypeId, String skadetype, int pris) {
         this.skadetypeId = skadetypeId;
         this.skadetype = skadetype;
         this.pris = pris;
     }
 
-    // Getters og Setters
     public int getSkadetypeId() {
         return skadetypeId;
     }

@@ -1,4 +1,5 @@
 
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
 import java.time.LocalDate;
@@ -14,10 +15,7 @@ public class Lejeaftale {
     private String status;
     private LocalDateTime oprettetDato;
 
-    // Tom konstruktør
     public Lejeaftale() {}
-
-    // Konstruktør
     public Lejeaftale(String vognnummer, LocalDate startDato, LocalDate slutDato,
                       double maanedligPris, double totalPris, String status) {
         this.vognnummer = vognnummer;
@@ -28,8 +26,6 @@ public class Lejeaftale {
         this.status = status;
     }
 
-
-    // Getters og Setters
     public int getLejeaftaleId() {
         return lejeaftaleId;
     }

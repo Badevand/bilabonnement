@@ -1,4 +1,5 @@
-// SkadeRepository.java - placeres i din repository mappe
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.repository;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -19,7 +20,7 @@ public class SkadeRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // RowMapper for Bil
+
     private RowMapper<Bil> bilRowMapper = new RowMapper<Bil>() {
         @Override
         public Bil mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -38,7 +39,7 @@ public class SkadeRepository {
         }
     };
 
-    // RowMapper for Skadepris
+
     private RowMapper<Skadepris> skadeprisRowMapper = new RowMapper<Skadepris>() {
         @Override
         public Skadepris mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -50,7 +51,7 @@ public class SkadeRepository {
         }
     };
 
-    // RowMapper for Tilstandsrapport
+
     private RowMapper<Tilstandsrapport> tilstandsrapportRowMapper = new RowMapper<Tilstandsrapport>() {
         @Override
         public Tilstandsrapport mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -68,15 +69,20 @@ public class SkadeRepository {
         }
     };
 
-    // Find alle skadetyper og priser
     public List<Skadepris> findAllSkadepriser() {
-        String sql = "SELECT * FROM skadepriser";
+        String sql = """
+        SELECT * 
+        FROM skadepriser
+        """;
         return jdbcTemplate.query(sql, skadeprisRowMapper);
     }
 
-    // Opret tilstandsrapport (returnerer ID)
+
     public int saveTilstandsrapport(Tilstandsrapport tilstandsrapport) {
-        String sql = "INSERT INTO tilstandsrapporter (lejeaftale_id, vognnummer, rapport_dato, overkoerte_km, km_pris, total_skadepris, total_km_pris, slutopgoerelse_sendt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = """
+        INSERT INTO tilstandsrapporter (lejeaftale_id, vognnummer, rapport_dato, overkoerte_km, km_pris, total_skadepris, total_km_pris, slutopgoerelse_sendt) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """;
         jdbcTemplate.update(sql,
                 tilstandsrapport.getLejeaftaleId(),
                 tilstandsrapport.getVognnummer(),
@@ -88,14 +94,22 @@ public class SkadeRepository {
                 tilstandsrapport.isSlutopgoerelseSendt()
         );
 
-        // Hent det genererede ID
-        String getIdSql = "SELECT LAST_INSERT_ID()";
+        String getIdSql = """
+        SELECT LAST_INSERT_ID()
+        """;
         return jdbcTemplate.queryForObject(getIdSql, Integer.class);
     }
 
-    // Find lejeaftale ID for en bil (bruges til tilstandsrapport)
+    // find lejeaftale ID for en bil (tilstandsrapport)
     public Integer findLejeaftaleIdForBil(String vognnummer) {
-        String sql = "SELECT lejeaftale_id FROM lejeaftaler WHERE vognnummer = ? AND status = 'afsluttet' ORDER BY lejeaftale_id DESC LIMIT 1";
+        String sql = """
+        SELECT lejeaftale_id 
+        FROM lejeaftaler 
+        WHERE vognnummer = ? 
+        AND status = 'afsluttet' 
+        ORDER BY lejeaftale_id DESC 
+        LIMIT 1
+        """;
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, vognnummer);
         } catch (Exception e) {

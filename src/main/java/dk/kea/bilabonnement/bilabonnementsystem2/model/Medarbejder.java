@@ -1,6 +1,7 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
-// Model klasse - placeres i din model mappe
 public class Medarbejder {
 
     private int medarbejderId;
@@ -10,9 +11,7 @@ public class Medarbejder {
     private String email;
     private String rolle;
 
-    // Konstruktører
     public Medarbejder() {}
-
     public Medarbejder(String brugernavn, String password, String navn, String email, String rolle) {
         this.brugernavn = brugernavn;
         this.password = password;
@@ -21,7 +20,6 @@ public class Medarbejder {
         this.rolle = rolle;
     }
 
-    // Getters og Setters
     public int getMedarbejderId() {
         return medarbejderId;
     }

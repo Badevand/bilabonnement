@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.controller;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Bil;
@@ -31,30 +33,30 @@ public class SkadeController {
     @Autowired
     private LejeaftaleService lejeaftaleService;
 
-    // Vis siden til skade & udbedring
+
     @GetMapping("/skade")
     public String showSkadePage(HttpSession session, Model model) {
-        // Tjek om bruger er logget ind
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
-        // Hent biler med skade status
+        // bruges ikke
         List<Bil> skadedeBiler = bilService.getBilerMedSkadeStatus();
         model.addAttribute("skadedeBiler", skadedeBiler);
 
-        // Hent skadetyper og priser
+        // skadetyper og priser
         List<Skadepris> skadepriser = skadeService.getSkadepriser();
         model.addAttribute("skadepriser", skadepriser);
 
-        // Hent afsluttede lejeaftaler til tilstandsrapport funktionalitet
+        // afsluttede lejeaftaler til tilstandsrapport
         List<Lejeaftale> afsluttedeLejeaftaler = lejeaftaleService.getAfsluttedeLejeaftaler();
         model.addAttribute("afsluttedeLejeaftaler", afsluttedeLejeaftaler);
 
         return "skade";
     }
 
-    // Håndter oprettelse af tilstandsrapport
+    // håndter oprettelse af tilstandsrapport
     @PostMapping("/opret-tilstandsrapport")
     public String opretTilstandsrapport(@RequestParam int lejeaftaleId,
                                         @RequestParam int lakfeltAntal,
@@ -63,15 +65,18 @@ public class SkadeController {
                                         @RequestParam int overkoerteKm,
                                         Model model) {
 
-        // Opret tilstandsrapport med automatisk beregning
+        // opret tilstandsrapport med automatisk beregning
         tilstandsrapportService.opretTilstandsrapport(lejeaftaleId, lakfeltAntal, ridsetAlufaelgAntal, nyForrudeAntal, overkoerteKm);
 
-        // Vis bekræftelse
-        model.addAttribute("tilstandsrapportSuccess", "Tilstandsrapport oprettet! Bil status ændret til 'klar til afhentning af køber'.");
+        model.addAttribute("tilstandsrapportSuccess", "Tilstandsrapport oprettet!" +
+                "Bil status ændret til 'klar til afhentning af køber'.");
 
-        // Hent data til siden
+
+        // bruges ikke
         List<Bil> skadedeBiler = bilService.getBilerMedSkadeStatus();
         model.addAttribute("skadedeBiler", skadedeBiler);
+
+
         List<Skadepris> skadepriser = skadeService.getSkadepriser();
         model.addAttribute("skadepriser", skadepriser);
         List<Lejeaftale> afsluttedeLejeaftaler = lejeaftaleService.getAfsluttedeLejeaftaler();
@@ -80,21 +85,23 @@ public class SkadeController {
         return "skade";
     }
 
-    // Send slutopgørelse
+    // send slutopgørelse
     @PostMapping("/send-slutopgoerelse")
     public String sendSlutopgoerelse(@RequestParam int tilstandsrapportId,
                                      @RequestParam String email,
                                      Model model) {
 
-        // Send slutopgørelse
+        // send slutopgørelse
         tilstandsrapportService.sendSlutopgoerelse(tilstandsrapportId, email);
 
-        // Vis bekræftelse
         model.addAttribute("slutopgoerelseSendt", "Slutopgørelse sendt til " + email);
 
-        // Hent data til siden
+
+        // bruges ikke
         List<Bil> skadedeBiler = bilService.getBilerMedSkadeStatus();
         model.addAttribute("skadedeBiler", skadedeBiler);
+
+
         List<Skadepris> skadepriser = skadeService.getSkadepriser();
         model.addAttribute("skadepriser", skadepriser);
         List<Lejeaftale> afsluttedeLejeaftaler = lejeaftaleService.getAfsluttedeLejeaftaler();

@@ -1,3 +1,5 @@
+
+
 package dk.kea.bilabonnement.bilabonnementsystem2.service;
 
 import dk.kea.bilabonnement.bilabonnementsystem2.model.Medarbejder;
@@ -14,19 +16,20 @@ public class MedarbejderService {
     @Autowired
     private LejeaftaleService lejeaftaleService;
 
-    // Håndter login og opdater udløbede lejeaftaler
+
     public Medarbejder login(String brugernavn, String password) {
         Medarbejder medarbejder = medarbejderRepository.findByBrugernavnAndPassword(brugernavn, password);
 
         if (medarbejder != null) {
-            // Opdater udløbede lejeaftaler ved login
+
+            // opdater udløbede lejeaftaler ved login
             lejeaftaleService.updateUdloebetLejeaftaler();
         }
 
         return medarbejder;
     }
 
-    // Få redirect URL baseret på medarbejder rolle
+
     public String getRedirectUrlForRole(String rolle) {
         switch (rolle) {
             case "dataregistrering":

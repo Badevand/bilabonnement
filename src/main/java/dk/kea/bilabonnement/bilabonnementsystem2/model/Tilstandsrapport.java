@@ -1,4 +1,5 @@
 
+
 package dk.kea.bilabonnement.bilabonnementsystem2.model;
 
 import java.time.LocalDate;
@@ -14,10 +15,7 @@ public class Tilstandsrapport {
     private double totalKmPris;
     private boolean slutopgoerelseSendt;
 
-    // Tom konstruktør
     public Tilstandsrapport() {}
-
-    // Konstruktør til oprettelse (uden ID)
     public Tilstandsrapport(int lejeaftaleId, String vognnummer, LocalDate rapportDato,
                             int overkoerteKm, double kmPris, int totalSkadepris,
                             double totalKmPris, boolean slutopgoerelseSendt) {
@@ -31,7 +29,6 @@ public class Tilstandsrapport {
         this.slutopgoerelseSendt = slutopgoerelseSendt;
     }
 
-    // Getters og Setters
     public int getTilstandsrapportId() {
         return tilstandsrapportId;
     }
