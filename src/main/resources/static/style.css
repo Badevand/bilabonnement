@@ -1,6 +1,5 @@
-/* style.css - Bilabonnement System Styling */
 
-/* Reset og basis styling */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +14,7 @@ body {
     padding: 20px;
 }
 
-/* Container styling - følger Golden Rule om consistency */
+
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -26,7 +25,7 @@ body {
     min-height: 500px;
 }
 
-/* Headers - følger Gestalt Law of Hierarchy */
+
 h1 {
     color: #64b5f6;
     font-size: 2.2em;
@@ -52,7 +51,7 @@ h3 {
     margin-top: 20px;
 }
 
-/* Forms - følger Gestalt Law of Proximity og Similarity */
+
 form {
     background: #1e1e1e;
     padding: 25px;
@@ -65,7 +64,7 @@ form div {
     margin-bottom: 20px;
 }
 
-/* Labels - følger Golden Rule om informative feedback */
+
 label {
     display: block;
     font-weight: 600;
@@ -74,7 +73,7 @@ label {
     font-size: 0.95em;
 }
 
-/* Input fields - følger Gestalt Law of Similarity */
+
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -91,7 +90,7 @@ select {
     color: #e4e4e7;
 }
 
-/* Focus states - følger Golden Rule om user control */
+
 input:focus,
 select:focus {
     outline: none;
@@ -99,7 +98,7 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.3);
 }
 
-/* Buttons - følger Gestalt Law of Figure/Ground */
+
 button {
     background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
@@ -124,7 +123,7 @@ button:active {
     transform: translateY(0);
 }
 
-/* Success og Error messages - følger Golden Rule om informative feedback */
+
 .success {
     background: #1b3a23;
     color: #4caf50;
@@ -153,7 +152,7 @@ button:active {
     text-align: center;
 }
 
-/* Info sektion - følger Gestalt Law of Closure */
+
 .info {
     background: #1a2332;
     border: 1px solid #2c3e50;
@@ -178,7 +177,7 @@ button:active {
     border: 1px solid #4a4a4a;
 }
 
-/* Tables - følger Gestalt Law of Similarity og Proximity */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -214,7 +213,7 @@ tr:hover {
     background-color: #2d3142;
 }
 
-/* Reports sektion - følger Gestalt Law of Proximity */
+
 .report {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -239,7 +238,7 @@ tr:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Links - følger Golden Rule om consistency */
+
 a {
     color: #64b5f6;
     text-decoration: none;
@@ -258,7 +257,7 @@ a:hover {
     transform: translateY(-2px);
 }
 
-/* Lists - følger Gestalt Law of Proximity */
+
 ul {
     background: #1e1e1e;
     padding: 20px 25px;
@@ -273,7 +272,7 @@ ul li {
     color: #e4e4e7;
 }
 
-/* HR styling - følger Gestalt Law of Continuity */
+
 hr {
     border: none;
     height: 2px;
@@ -282,7 +281,7 @@ hr {
     border-radius: 1px;
 }
 
-/* Responsive design - følger Golden Rule om flexibility */
+
 @media (max-width: 768px) {
     body {
         padding: 10px;

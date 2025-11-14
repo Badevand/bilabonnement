@@ -82,14 +82,13 @@ public class BilServiceTest {
     @Test
     public void testUpdateBilStatus_ValidInput() {
 
-        // arrange
         String vognnummer = "ABC123";
         String nyStatus = "udlejet";
 
-        // act
+
         bilService.updateBilStatus(vognnummer, nyStatus);
 
-        // assert
+
         verify(bilRepository).updateBilStatus(vognnummer, nyStatus);
     }
 }

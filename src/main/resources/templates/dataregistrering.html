@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -9,7 +11,7 @@
 <div class="container">
     <h1>Dataregistrering - Lejeaftaler</h1>
 
-    <!-- ALLE SUCCESS BESKEDER I TOPPEN -->
+
     <div th:if="${success}" class="success">
         <p th:text="${success}"></p>
     </div>
@@ -74,7 +76,9 @@
                 <option value="">-- Vælg en bil --</option>
                 <option th:each="bil : ${ledigeBiler}"
                         th:value="${bil.vognnummer}"
-                        th:text="${bil.vognnummer + ' - ' + bil.stelnummer + ' - ' + bil.maerke + ' ' + bil.model + ' - ' + bil.udstyrsniveau + ' - Stålpris: ' + bil.staalpris + ' - Reg.afgift: ' + bil.regAfgift + ' - CO2: ' + bil.co2Udledning + ' (Status: ' + bil.status + ')'}">
+                        th:text="${bil.vognnummer + ' - ' + bil.stelnummer + ' - ' + bil.maerke + ' ' +
+                        bil.model + ' - ' + bil.udstyrsniveau + ' - Stålpris: ' + bil.staalpris + ' - Reg.afgift: ' +
+                        bil.regAfgift + ' - CO2: ' + bil.co2Udledning + ' (Status: ' + bil.status + ')'}">
                 </option>
             </select>
         </div>
@@ -135,7 +139,7 @@
         <button type="submit">Træk liste fra Fleet</button>
     </form>
 
-    <!-- Vis Fleet liste -->
+    <!-- fleet -->
     <div th:if="${fleetListeHentet}">
         <h3>Liste hentet fra Fleet - biler til udlevering i dag:</h3>
         <table>
